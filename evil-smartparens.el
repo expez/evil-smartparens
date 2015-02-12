@@ -35,6 +35,10 @@
 (require 'smartparens)
 (require 'diminish)
 
+(defgroup company-quickhelp nil
+  "`evil-mode' compat for `smartparens-mode'"
+  :group 'smartparens)
+
 (defcustom evil-smartparens-lighter " SP/e"
   "The lighter used for evil-smartparens without strict mode."
   :group 'evil-smartparens
