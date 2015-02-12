@@ -174,7 +174,7 @@ To fetch the test dependencies, install [cask](https://github.com/rejeep/cask.el
 
 Run the tests with:
 
-    $ ./run-tests.sh
+    $ make test
 
 ## License
 
