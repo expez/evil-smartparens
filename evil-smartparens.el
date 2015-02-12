@@ -155,10 +155,10 @@ We want a different lighter for `smartparens-mode' and
     (condition-case nil
         (let* ((beg (evil-sp--new-beginning beg end))
                (end (evil-sp--new-ending beg end)))
-          (evil-delete beg end type register yank-handler)))
-    ('error (let* ((beg (evil-sp--new-beginning beg end :shrink))
-                   (end (evil-sp--new-ending beg end)))
-              (evil-delete beg end type yank-handler)))))
+          (evil-delete beg end type register yank-handler))
+      (error (let* ((beg (evil-sp--new-beginning beg end :shrink))
+                    (end (evil-sp--new-ending beg end)))
+               (evil-delete beg end type yank-handler))))))
 
 (evil-define-operator evil-sp-change (beg end type register yank-handler)
   "Call `evil-change' with a balanced region"
@@ -169,9 +169,9 @@ We want a different lighter for `smartparens-mode' and
         (let* ((beg (evil-sp--new-beginning beg end))
                (end (evil-sp--new-ending beg end)))
           (evil-change beg end 'inclusive yank-handler))
-      ('error (let* ((beg (evil-sp--new-beginning beg end :shrink))
-                     (end (evil-sp--new-ending beg end)))
-                (evil-change beg end 'inclusive yank-handler))))))
+      (error (let* ((beg (evil-sp--new-beginning beg end :shrink))
+                    (end (evil-sp--new-ending beg end)))
+               (evil-change beg end 'inclusive yank-handler))))))
 
 (evil-define-operator evil-sp-yank (beg end type register yank-handler)
   :move-point nil
