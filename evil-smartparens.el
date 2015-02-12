@@ -128,7 +128,7 @@ We want a different lighter for `smartparens-mode' and
 (defun evil-sp--disable ()
   "Deactive advice and restore modeline."
   (diminish-undo 'smartparens-mode)
-  (remove-hook #' smartparens-disabled-hook #'evil-sp--disable))
+  (remove-hook 'smartparens-disabled-hook #'evil-sp--disable))
 
 (defun evil-sp--add-bindings ()
   (when smartparens-strict-mode
@@ -224,7 +224,7 @@ We want a different lighter for `smartparens-mode' and
   "Activate advice and update modeline."
   (diminish 'smartparens-mode)
   (evil-sp--add-bindings)
-  (add-hook #' smartparens-disabled-hook #'evil-sp--disable))
+  (add-hook 'smartparens-disabled-hook #'evil-sp--disable))
 
 ;;;###autoload
 (define-minor-mode evil-smartparens-mode
