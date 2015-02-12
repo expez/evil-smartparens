@@ -35,7 +35,7 @@
 (require 'smartparens)
 (require 'diminish)
 
-(defgroup company-quickhelp nil
+(defgroup evil-smartparens nil
   "`evil-mode' compat for `smartparens-mode'"
   :group 'smartparens)
 
