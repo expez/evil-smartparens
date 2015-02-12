@@ -6,7 +6,7 @@
 ;; URL: https://www.github.com/expez/evil-smartparens
 ;; Keywords: evil smartparens
 ;; Version: 0.1
-;; Package-Requires: ((evil "1.0") (cl-lib "0.3") (emacs "24.1") (diminish "0.44") (smartparens "1.6.3)
+;; Package-Requires: ((evil "1.0") (cl-lib "0.3") (emacs "24.4") (diminish "0.44") (smartparens "1.6.3)
 
 ;; This file is not part of GNU Emacs.
 
