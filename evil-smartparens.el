@@ -151,9 +151,6 @@ We want a different lighter for `smartparens-mode' and
            (end (evil-sp--new-ending beg end)))
       (evil-delete beg end type register yank-handler))))
 
-(defun evil-sp--on-same-line-p (p1 p2)
-  (= (line-number-at-pos p1) (line-number-at-pos p2)))
-
 (evil-define-operator evil-sp-change (beg end type register yank-handler)
   "Call `evil-change' with a balanced region"
   (interactive "<R><x><y>")
@@ -161,9 +158,7 @@ We want a different lighter for `smartparens-mode' and
       (evil-change beg end type yank-handler)
     (let* ((beg (evil-sp--new-beginning beg end))
            (end (evil-sp--new-ending beg end)))
-      (if (evil-sp--on-same-line-p beg end)
-          (evil-change beg end 'inclusive yank-handler)
-        (evil-change beg end type yank-handler)))))
+      (evil-change beg end 'inclusive yank-handler))))
 
 (evil-define-operator evil-sp-yank (beg end type register yank-handler)
   :move-point nil
