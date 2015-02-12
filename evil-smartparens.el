@@ -151,18 +151,26 @@ We want a different lighter for `smartparens-mode' and
   (interactive "<R><x><y>")
   (if (evil-sp--override)
       (evil-delete beg end type register yank-handler)
-    (let* ((beg (evil-sp--new-beginning beg end))
-           (end (evil-sp--new-ending beg end)))
-      (evil-delete beg end type register yank-handler))))
+    (condition-case nil
+        (let* ((beg (evil-sp--new-beginning beg end))
+               (end (evil-sp--new-ending beg end)))
+          (evil-delete beg end type register yank-handler)))
+    ('error (let* ((beg (evil-sp--new-beginning beg end :shrink))
+                   (end (evil-sp--new-ending beg end)))
+              (evil-delete beg end type yank-handler)))))
 
 (evil-define-operator evil-sp-change (beg end type register yank-handler)
   "Call `evil-change' with a balanced region"
   (interactive "<R><x><y>")
   (if (evil-sp--override)
       (evil-change beg end type yank-handler)
-    (let* ((beg (evil-sp--new-beginning beg end))
-           (end (evil-sp--new-ending beg end)))
-      (evil-change beg end 'inclusive yank-handler))))
+    (condition-case nil
+        (let* ((beg (evil-sp--new-beginning beg end))
+               (end (evil-sp--new-ending beg end)))
+          (evil-change beg end 'inclusive yank-handler))
+      ('error (let* ((beg (evil-sp--new-beginning beg end :shrink))
+                     (end (evil-sp--new-ending beg end)))
+                (evil-change beg end 'inclusive yank-handler))))))
 
 (evil-define-operator evil-sp-yank (beg end type register yank-handler)
   :move-point nil
@@ -170,9 +178,13 @@ We want a different lighter for `smartparens-mode' and
   (interactive "<R><x><y>")
   (if (evil-sp--override)
       (evil-yank beg end type register yank-handler)
-    (let* ((beg (evil-sp--new-beginning beg end))
-           (end (evil-sp--new-ending beg end)))
-      (evil-yank beg end type register yank-handler))))
+    (condition-case nil
+        (let* ((beg (evil-sp--new-beginning beg end))
+               (end (evil-sp--new-ending beg end)))
+          (evil-yank beg end type register yank-handler))
+      ('error (let* ((beg (evil-sp--new-beginning beg end :shrink))
+                     (end (evil-sp--new-ending beg end)))
+                (evil-yank beg end type yank-handler))))))
 
 (evil-define-operator evil-sp-change-whole-line
   (beg end type register yank-handler)
