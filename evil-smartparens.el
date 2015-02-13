@@ -248,7 +248,7 @@ Strings affect depth."
         (goto-char point))
       (unwind-protect
           (while (and (not (sp-point-in-comment))
-                      (sp-backward-up-sexp))
+                      (ignore-errors (sp-backward-up-sexp)))
             (cl-incf depth))
         (pop sp-navigate-consider-stringlike-sexp)))
     depth))
