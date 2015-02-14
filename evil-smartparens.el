@@ -6,7 +6,7 @@
 ;; URL: https://www.github.com/expez/evil-smartparens
 ;; Keywords: evil smartparens
 ;; Version: 0.1
-;; Package-Requires: ((evil "1.0") (cl-lib "0.3") (emacs "24.4") (smartparens "1.6.3") (s "1.9.0"))
+;; Package-Requires: ((evil "1.0") (cl-lib "0.3") (emacs "24.4") (smartparens "1.6.3"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -33,7 +33,7 @@
 
 (require 'evil)
 (require 'smartparens)
-(require 's)
+(require 'subr-x)
 
 (defgroup evil-smartparens nil
   "`evil-mode' compat for `smartparens-mode'"
@@ -223,8 +223,8 @@ Strings affect depth."
 
 (defun evil-sp--new-ending (beg end)
   "Find the largest safe region delimited by BEG END."
-  (let ((region (s-trim (buffer-substring-no-properties beg end))))
-    (unless (s-blank? region)
+  (let ((region (string-trim (buffer-substring-no-properties beg end))))
+    (unless (string-blank-p region)
       (cond
        ((sp-point-in-empty-sexp)
         ;; expand region if we're in an empty sexp
@@ -249,8 +249,8 @@ by decrementing BEG."
                (evil-sp--point-after 'sp-backward-up-sexp)
              (point-max)))
 
-    (let ((region (s-trim (buffer-substring-no-properties beg end))))
-      (unless (s-blank? region)
+    (let ((region (string-trim (buffer-substring-no-properties beg end))))
+      (unless (string-blank-p region)
         (cond
          ((sp-point-in-empty-sexp)
           ;; expand region if we're in an empty sexp
