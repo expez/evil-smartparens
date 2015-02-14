@@ -6,7 +6,7 @@
 ;; URL: https://www.github.com/expez/evil-smartparens
 ;; Keywords: evil smartparens
 ;; Version: 0.1
-;; Package-Requires: ((evil "1.0") (cl-lib "0.3") (emacs "24.4") (diminish "0.44") (smartparens "1.6.3") (s "1.9.0"))
+;; Package-Requires: ((evil "1.0") (cl-lib "0.3") (emacs "24.4") (smartparens "1.6.3") (s "1.9.0"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -33,22 +33,11 @@
 
 (require 'evil)
 (require 'smartparens)
-(require 'diminish)
 (require 's)
 
 (defgroup evil-smartparens nil
   "`evil-mode' compat for `smartparens-mode'"
   :group 'smartparens)
-
-(defcustom evil-smartparens-lighter " SP/e"
-  "The lighter used for evil-smartparens without strict mode."
-  :group 'evil-smartparens
-  :type 'string)
-
-(defcustom evil-smartparens-strict-lighter " SP/se"
-  "The lighter used for evil-smartparens and strict mode."
-  :group 'evil-smartparens
-  :type 'string)
 
 (defcustom evil-smartparens-threshold 2500
   "If the region being operated on is larger than this we cop out.
@@ -116,20 +105,6 @@ list of (fn args) to pass to `apply''"
            (save-excursion
              (re-search-forward (sp--get-closing-regexp) (point-at-eol)
                                 :noerror)))))
-
-(defun evil-sp--lighter ()
-  "Create the lighter for `evil-smartparens'.
-
-We want a different lighter for `smartparens-mode' and
-`smartparens-strict-mode'."
-  (if smartparens-strict-mode
-      evil-smartparens-strict-lighter
-    evil-smartparens-lighter))
-
-(defun evil-sp--disable ()
-  "Deactive advice and restore modeline."
-  (diminish-undo 'smartparens-mode)
-  (remove-hook 'smartparens-disabled-hook #'evil-sp--disable))
 
 (defun evil-sp--add-bindings ()
   (when smartparens-strict-mode
@@ -221,21 +196,14 @@ We want a different lighter for `smartparens-mode' and
                type
                register yank-handler))
 
-(defun evil-sp--enable ()
-  "Activate advice and update modeline."
-  (diminish 'smartparens-mode)
-  (evil-sp--add-bindings)
-  (add-hook 'smartparens-disabled-hook #'evil-sp--disable))
-
 ;;;###autoload
 (define-minor-mode evil-smartparens-mode
   "Toggle evil-smartparens."
-  :lighter (:eval (evil-sp--lighter))
+  :lighter "es"
   :init-value nil
   :keymap evil-smartparens-mode-map
-  (if evil-smartparens-mode
-      (evil-sp--enable)
-    (evil-sp--disable)))
+  (when evil-smartparens-mode
+    (evil-sp--add-bindings)))
 
 (defun evil-sp--depth-at (&optional point)
   "Return the depth at POINT.
