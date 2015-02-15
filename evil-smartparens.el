@@ -120,7 +120,8 @@ list of (fn args) to pass to `apply''"
     (kbd "Y") #'evil-sp-yank-line
     (kbd "C") #'evil-sp-change-line)
   (evil-define-key 'visual evil-smartparens-mode-map
-    (kbd "o") #'evil-sp-override))
+    (kbd "o") #'evil-sp-override)
+  (evil-normalize-keymaps))
 
 (evil-define-operator evil-sp-delete (beg end type register yank-handler)
   "Call `evil-delete' with a balanced region"

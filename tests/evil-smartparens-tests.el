@@ -6,6 +6,14 @@
   ;; don't error out during tests
   )
 
+(defun evil-sp--enable-for-test (&rest _)
+  (unless (eq major-mode 'emacs-lisp-mode)
+    (emacs-lisp-mode))
+  (smartparens-strict-mode 1)
+  (evil-smartparens-mode 1))
+
+(add-hook 'evil-mode-hook #'evil-sp--enable-for-test)
+
 (ert-deftest evil-sp-test-delete-word ()
   "Test `evil-delete-word'"
   :tags '(evil-sp)
@@ -139,7 +147,7 @@
        (frobnicate bar)))"
     ("dd" [escape])
     "(let ((foo bar)
-      (frobnicate bar)))"))
+       (frobnicate bar)))"))
 
 (ert-deftest evil-sp-test-dd-on-line-with-string ()
   "Test `evil-delete-whole-line'"
@@ -182,4 +190,4 @@
   bas)"
     ("D" [escape])
     "(foo
- bas)"))
+  bas)"))

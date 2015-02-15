@@ -4,7 +4,8 @@ ECUKES ?= ecukes
 
 test: elpa
 	${CASK} exec ${EMACS} -Q -batch -L . -L tests \
-		-l tests/evil-smartparens-tests.el -f ert-run-tests-batch-and-exit
+		-l tests/evil-smartparens-tests.el \
+		-f ert-run-tests-batch-and-exit
 
 ecukes-features: elpa
 	${CASK} exec ${ECUKES} --no-win

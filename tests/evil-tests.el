@@ -114,9 +114,7 @@ raised.  Remaining forms are evaluated as-is.
                (switch-to-buffer-other-window (current-buffer))
                (buffer-enable-undo)
                (undo-tree-mode 1)
-               (smartparens-strict-mode 1)
-               (evil-smartparens-mode 1)
-               (emacs-lisp-mode)
+               (evil-mode 1)
                ;; parse remaining forms
                ,@(mapcar
                   #'(lambda (form)
