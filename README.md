@@ -4,19 +4,19 @@ Evil smartparens is a minor mode which makes [evil](https://gitorious.org/evil/p
 
 ## Installation
 
-<!-- I highly recommend installing evil-smartparens through elpa. -->
+I highly recommend installing evil-smartparens through elpa.
 
-<!-- It's available on [melpa](http://melpa.milkbox.net/): -->
+It's available on [melpa](http://melpa.milkbox.net/):
 
-<!--     M-x package-install evil-smartparens -->
+    M-x package-install evil-smartparens
 
-I've opted not to publish this package yet, but if you want to help me test it, just put `evil-smartparens.el` somewhere on `load-path` and do:
+Put this in your `.emacs` or `init.el`:
 
 ```elisp
 (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
 ```
 
-this will turn on `evil-smartparens` whenever `smartparens` is activated.  This might not be what you want, as you're likely to get some surprises when working in buffers running say `markdown-mode`.  If you just want to enable `evil-smartparens` in certain modes you can do, e.g. in `clojure-mode`:
+this will turn on `evil-smartparens` whenever `smartparens` is activated.  This might not be what you want, as you're likely to get some surprises when working in buffers running say `markdown-mode`.  If you just want to enable `evil-smartparens` in certain modes you can do something like this:
 
 ```elisp
 (add-hook 'clojure-mode-hook #'evil-smartparens-mode)
@@ -24,7 +24,7 @@ this will turn on `evil-smartparens` whenever `smartparens` is activated.  This 
 
 ## Features
 
-The goal of evil smartparens is to dwim instead of just erroring out.
+The goal of evil smartparens is to do what you mean instead of just erroring out.
 
 In the examples, let `|` indicate the position of cursor, and `[` and `]` delimit visual selections:
 
@@ -149,7 +149,7 @@ In `smartparens-mode` the only keys that are rebound are those imitating the fun
 
 Quite a bit of work is done to ensure region is OK.  This means we can run into performance issues.  The variable `evil-smartparens-threshold` controls how large `region` should be before we cop out.  The most common cases should be quite fast (regions limited to the delimiters found in lisp-like languages), but the more exotic delimiters use a much slower code path.  On slow computers it might make sense to decrease decrease `evil-smartparens-threshold`.  In any event, it prevents checking entire files when we're copying out from emacs.
 
-## Escape hatch
+## Escape hatches
 
 The function `evil-sp-override`, which by default is bound to `o`, in `visual-state` provides an escape hatch, out of `evil-smartparens` and back to `evil`, when it's called before another command.
 
@@ -163,18 +163,18 @@ Yes
 
 The demo showcases `c`, with a sloppy unbalanced selection, `D` (in two contexts) and `dd`.
 
-## Contribute
+<!-- ## Contribute -->
 
-Please send help!  There is a suite of tests that I'd like you to add to whenever a bug is fixed or a new feature is added.  If you don't do this I'm likely to break your code when I stumble around the codebase.
+<!-- Please send help!  There is a suite of tests that I'd like you to add to whenever a bug is fixed or a new feature is added.  If you don't do this I'm likely to break your code when I stumble around the codebase. -->
 
-To fetch the test dependencies, install [cask](https://github.com/rejeep/cask.el) if you haven't already, then:
+<!-- To fetch the test dependencies, install [cask](https://github.com/rejeep/cask.el) if you haven't already, then: -->
 
-    $ cd /path/to/evil-smartparens
-    $ cask
+<!--     $ cd /path/to/evil-smartparens -->
+<!--     $ cask -->
 
-Run the tests with:
+<!-- Run the tests with: -->
 
-    $ make test
+<!--     $ make test -->
 
 ## License
 
