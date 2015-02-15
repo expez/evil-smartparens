@@ -163,18 +163,18 @@ Yes
 
 The demo showcases `c`, with a sloppy unbalanced selection, `D` (in two contexts) and `dd`.
 
-<!-- ## Contribute -->
+## Contribute
 
-<!-- Please send help!  There is a suite of tests that I'd like you to add to whenever a bug is fixed or a new feature is added.  If you don't do this I'm likely to break your code when I stumble around the codebase. -->
+Please send help!  There is a suite of tests that I'd like you to add to whenever a bug is fixed or a new feature is added.  If you don't do this I'm likely to break your code when I stumble around the codebase.
 
-<!-- To fetch the test dependencies, install [cask](https://github.com/rejeep/cask.el) if you haven't already, then: -->
+To fetch the test dependencies, install [cask](https://github.com/rejeep/cask.el) if you haven't already, then:
 
-<!--     $ cd /path/to/evil-smartparens -->
-<!--     $ cask -->
+    $ cd /path/to/evil-smartparens
+    $ cask
 
-<!-- Run the tests with: -->
+Run the tests with:
 
-<!--     $ make test -->
+    $ make test
 
 ## License
 
