@@ -199,7 +199,7 @@ list of (fn args) to pass to `apply''"
 ;;;###autoload
 (define-minor-mode evil-smartparens-mode
   "Toggle evil-smartparens."
-  :lighter "es"
+  :lighter " es"
   :init-value nil
   :keymap evil-smartparens-mode-map
   (when evil-smartparens-mode
