@@ -1,6 +1,7 @@
 (require 'ert)
 (require 'evil-smartparens)
 (require 'evil-tests)
+(require 'evil-surround)
 
 (defun evil-sp--fail ()
   ;; don't error out during tests
@@ -10,6 +11,7 @@
   (unless (eq major-mode 'emacs-lisp-mode)
     (emacs-lisp-mode))
   (smartparens-strict-mode 1)
+  (evil-surround-mode 1)
   (evil-smartparens-mode 1))
 
 (add-hook 'evil-mode-hook #'evil-sp--enable-for-test)
@@ -191,3 +193,27 @@
     ("D" [escape])
     "(foo
   bas)"))
+
+(ert-deftest evil-sp-change-works-with-evil-surround ()
+  "Test compat with `evil-surround'"
+  :tags '(evil-sp evil-surround)
+  (evil-test-buffer
+    "(f[o]o)"
+    ("cs(\"" [escape])
+    "\"foo\""))
+
+(ert-deftest evil-sp-delete-works-with-evil-surround ()
+  "Test compat with `evil-surround'"
+  :tags '(evil-sp evil-surround)
+  (evil-test-buffer
+    "(f[o]o)"
+    ("ds(" [escape])
+    "foo"))
+
+(ert-deftest evil-sp-evil-surround-yank-surround ()
+  "Test compat with `evil-surround'"
+  :tags '(evil-sp evil-surround)
+  (evil-test-buffer
+    "f[o]o"
+    ("ysiw\"" [escape])
+    "\"foo\""))
