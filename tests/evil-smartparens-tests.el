@@ -3,10 +3,6 @@
 (require 'evil-tests)
 (require 'evil-surround)
 
-(defun evil-sp--fail ()
-  ;; don't error out during tests
-  )
-
 (defun evil-sp--enable-for-test (&rest _)
   (unless (eq major-mode 'emacs-lisp-mode)
     (emacs-lisp-mode))
@@ -148,8 +144,7 @@
     "(let [(](foo bar)
        (frobnicate bar)))"
     ("dd" [escape])
-    "(let ((foo bar)
-       (frobnicate bar)))"))
+    (error nil)))
 
 (ert-deftest evil-sp-test-dd-on-line-with-string ()
   "Test `evil-delete-whole-line'"
@@ -217,3 +212,24 @@
     "f[o]o"
     ("ysiw\"" [escape])
     "\"foo\""))
+
+(ert-deftest evil-sp-delete-backward-word ()
+  :tags '(evil-sp)
+  (evil-test-buffer
+    "(f[o]o)"
+    ("db" [escape])
+    "(oo)"))
+
+(ert-deftest evil-sp-delete-backward-WORD()
+  :tags '(evil-sp)
+  (evil-test-buffer
+    "(fo[o])"
+    ("dB" [escape])
+    "(o)"))
+
+(ert-deftest evil-sp-delete-backward-to-bol ()
+  :tags '(evil-sp)
+  (evil-test-buffer
+    "(foo (bar[ ]baz))"
+    ("d^" [escape])
+    "(foo ( baz))"))
