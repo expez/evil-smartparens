@@ -123,11 +123,23 @@ list of (fn args) to pass to `apply''"
     (kbd "o") #'evil-sp-override)
   (evil-normalize-keymaps))
 
+(defun evil-sp--line-segment-ok-p (start-col end-col)
+  "Check if the region between START-COL and END-COL is
+  balanced"
+  (unless (sp-region-ok-p (evil-sp--point-after `(forward-char ,start-col))
+                          (evil-sp--point-after `(forward-char ,end-col)))
+    (evil-sp--fail)))
+
+(defun evil-sp--block-is-balanced (beg end)
+  (apply-on-rectangle #'evil-sp--line-segment-ok-p beg end))
+
 (evil-define-operator evil-sp-delete (beg end type register yank-handler)
   "Call `evil-delete' with a balanced region"
   (interactive "<R><x><y>")
   (if (or (evil-sp--override)
-          (= beg end))
+          (= beg end)
+          (and (eq type 'block)
+               (evil-sp--block-is-balanced beg end)))
       (evil-delete beg end type register yank-handler)
     (condition-case nil
         (let* ((beg (evil-sp--new-beginning beg end))
@@ -141,7 +153,9 @@ list of (fn args) to pass to `apply''"
   "Call `evil-change' with a balanced region"
   (interactive "<R><x><y>")
   (if (or (evil-sp--override)
-          (= beg end))
+          (= beg end)
+          (and (eq type 'block)
+               (evil-sp--block-is-balanced beg end)))
       (evil-change beg end type yank-handler)
     (condition-case nil
         (let* ((beg (evil-sp--new-beginning beg end))
@@ -156,7 +170,9 @@ list of (fn args) to pass to `apply''"
   :repeat nil
   (interactive "<R><x><y>")
   (if (or (evil-sp--override)
-          (= beg end))
+          (= beg end)
+          (and (eq type 'block)
+               (evil-sp--block-is-balanced beg end)))
       (evil-yank beg end type register yank-handler)
     (condition-case nil
         (let* ((beg (evil-sp--new-beginning beg end))
