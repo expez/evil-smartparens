@@ -233,3 +233,11 @@
     "(foo (bar[ ]baz))"
     ("d^" [escape])
     "(foo ( baz))"))
+
+(ert-deftest evil-sp-delete-empty-line ()
+  :tags '(evil-sp)
+  (evil-test-buffer
+    "fo[o]
+"
+    ("jdd" [escape])
+    "foo"))

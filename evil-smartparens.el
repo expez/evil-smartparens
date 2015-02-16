@@ -126,7 +126,8 @@ list of (fn args) to pass to `apply''"
 (evil-define-operator evil-sp-delete (beg end type register yank-handler)
   "Call `evil-delete' with a balanced region"
   (interactive "<R><x><y>")
-  (if (evil-sp--override)
+  (if (or (evil-sp--override)
+          (= beg end))
       (evil-delete beg end type register yank-handler)
     (condition-case nil
         (let* ((beg (evil-sp--new-beginning beg end))
@@ -139,7 +140,8 @@ list of (fn args) to pass to `apply''"
 (evil-define-operator evil-sp-change (beg end type register yank-handler)
   "Call `evil-change' with a balanced region"
   (interactive "<R><x><y>")
-  (if (evil-sp--override)
+  (if (or (evil-sp--override)
+          (= beg end))
       (evil-change beg end type yank-handler)
     (condition-case nil
         (let* ((beg (evil-sp--new-beginning beg end))
@@ -153,7 +155,8 @@ list of (fn args) to pass to `apply''"
   :move-point nil
   :repeat nil
   (interactive "<R><x><y>")
-  (if (evil-sp--override)
+  (if (or (evil-sp--override)
+          (= beg end))
       (evil-yank beg end type register yank-handler)
     (condition-case nil
         (let* ((beg (evil-sp--new-beginning beg end))
