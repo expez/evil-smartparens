@@ -197,6 +197,19 @@ list of (fn args) to pass to `apply''"
                type
                register yank-handler))
 
+(defun evil-sp--add-evil-surround-operators ()
+  "This registers our own operators so `evil-surround' can do
+proper dispatching."
+  (when (require 'evil-surround nil :noerror)
+    (add-to-list 'evil-surround-operator-alist
+                 '(evil-sp-change . change))
+    (add-to-list 'evil-surround-operator-alist
+                 '(evil-sp-delete . delete))))
+
+(defun evil-sp--enable ()
+  (evil-sp--add-bindings)
+  (evil-sp--add-evil-surround-operators))
+
 ;;;###autoload
 (define-minor-mode evil-smartparens-mode
   "Toggle evil-smartparens."
@@ -204,7 +217,7 @@ list of (fn args) to pass to `apply''"
   :init-value nil
   :keymap evil-smartparens-mode-map
   (when evil-smartparens-mode
-    (evil-sp--add-bindings)))
+    (evil-sp--enable)))
 
 (defun evil-sp--depth-at (&optional point)
   "Return the depth at POINT.
