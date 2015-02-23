@@ -114,7 +114,10 @@ list of (fn args) to pass to `apply''"
       (kbd "y") #'evil-sp-yank
       (kbd "S") #'evil-sp-change-whole-line
       (kbd "X") #'sp-backward-delete-char
-      (kbd "x") #'sp-delete-char))
+      (kbd "x") #'sp-delete-char)
+    (evil-define-key 'visual evil-smartparens-mode-map
+      (kbd "X") #'evil-sp-delete
+      (kbd "x") #'evil-sp-delete))
   (evil-define-key 'normal evil-smartparens-mode-map
     (kbd "D") #'evil-sp-delete-line
     (kbd "Y") #'evil-sp-yank-line

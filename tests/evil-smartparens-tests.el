@@ -241,3 +241,17 @@
 "
     ("jdd" [escape])
     "foo"))
+
+(ert-deftest evil-sp-delete-char-in-visual-mode ()
+  :tags '(evil-sp)
+  (evil-test-buffer
+   "f[o]o"
+   ("vlx" [escape])
+   "f"))
+
+(ert-deftest evil-sp-delete-char-backward-in-visual-mode ()
+  :tags '(evil-sp)
+  (evil-test-buffer
+   "f[o]o"
+   ("vlX" [escape])
+   "f"))
