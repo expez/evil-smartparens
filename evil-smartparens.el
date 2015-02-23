@@ -123,6 +123,8 @@ list of (fn args) to pass to `apply''"
     (kbd "Y") #'evil-sp-yank-line
     (kbd "C") #'evil-sp-change-line
     (kbd "DEL") #'sp-backward-delete-char)
+  (evil-define-key 'insert evil-smartparens-mode-map
+    (kbd "DEL") 'sp-backward-delete-char)
   (evil-define-key 'visual evil-smartparens-mode-map
     (kbd "o") #'evil-sp-override)
   (evil-normalize-keymaps))
