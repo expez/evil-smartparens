@@ -190,7 +190,8 @@ list of (fn args) to pass to `apply''"
 
 (evil-define-operator evil-sp-change-whole-line
   (beg end type register yank-handler)
-  "Emulate `sp-kill-sexp' and enter `evil-insert-state'."
+  "Emulate `sp-kill-sexp' with universal prefix and enter
+`evil-insert-state'."
   :motion nil
   (interactive "<R><x>")
   (evil-first-non-blank)
@@ -199,14 +200,15 @@ list of (fn args) to pass to `apply''"
     (evil-change beg end 'inclusive register yank-handler)))
 
 (evil-define-operator evil-sp-yank-line (beg end type register yank-handler)
-  "Emulate `sp-kill-sexp' but copy to yank-ring instead of killing."
+  "Emulate `sp-kill-sexp' with universal prefix but copy to
+yank-ring instead of killing."
   :motion evil-line
   :move-point nil
   (evil-yank (point) (evil-sp--get-endpoint-for-killing) 'inclusive
              register yank-handler))
 
 (evil-define-operator evil-sp-delete-line (beg end type register yank-handler)
-  "Emulate `sp-kill-sexp'."
+  "Emulate `sp-kill-sexp' with universal prefix."
   :motion nil
   (interactive "<R><x>")
   (if (looking-at "\n")
@@ -215,7 +217,7 @@ list of (fn args) to pass to `apply''"
                  'inclusive register yank-handler)))
 
 (evil-define-operator evil-sp-change-line (beg end type register yank-handler)
-  "Emulate `sp-kill-sexp'."
+  "Emulate `sp-kill-sexp' with universal prefix and enter `evil-insert-state'."
   :motion nil
   (interactive "<R><x>")
   (evil-change (point) (evil-sp--get-endpoint-for-killing)
