@@ -81,7 +81,7 @@ list of (fn args) to pass to `apply''"
       (point-at-eol) ; Act like kill line
     (max
      ;; Greedy killing
-     (1- (evil-sp--point-after 'sp-up-sexp))
+     (evil-sp--new-ending (point) (evil-sp--point-after 'sp-up-sexp) :no-error)
      (evil-sp--point-after 'sp-forward-sexp))))
 
 (defun evil-sp--region-too-expensive-to-check ()
@@ -260,7 +260,7 @@ Strings affect depth."
         (pop sp-navigate-consider-stringlike-sexp)))
     depth))
 
-(defun evil-sp--new-ending (beg end)
+(defun evil-sp--new-ending (beg end &optional no-error)
   "Find the largest safe region delimited by BEG END."
   (let ((region (string-trim (buffer-substring-no-properties beg end))))
     (unless (string-blank-p region)
@@ -273,9 +273,9 @@ Strings affect depth."
        (t (while (not (or (sp-region-ok-p beg end)
                           (= beg end)))
             (cl-decf end))))))
-  (when (= beg end)
-    (evil-sp--fail))
-  end)
+  (if (and (not no-error) (= beg end))
+      (evil-sp--fail)
+    end))
 
 (defun evil-sp--new-beginning (beg end &optional shrink)
   "Return a new value for BEG if POINT is inside an empty sexp.
