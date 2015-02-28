@@ -81,7 +81,10 @@ list of (fn args) to pass to `apply''"
       (point-at-eol) ; Act like kill line
     (max
      ;; Greedy killing
-     (evil-sp--new-ending (point) (evil-sp--point-after 'sp-up-sexp) :no-error)
+     (evil-sp--new-ending (point) (evil-sp--with-stringlike-navigation
+                                   (evil-sp--point-after '(sp-up-sexp 1)
+                                                         '(sp-backward-down-sexp 1)))
+                          :no-error)
      (evil-sp--point-after 'sp-forward-sexp))))
 
 (defun evil-sp--region-too-expensive-to-check ()
@@ -246,6 +249,12 @@ proper dispatching."
   (when evil-smartparens-mode
     (evil-sp--enable)))
 
+(defmacro evil-sp--with-stringlike-navigation (&rest body)
+  `(unwind-protect
+       (progn
+         (push major-mode sp-navigate-consider-stringlike-sexp)
+         ,@body)
+     (pop sp-navigate-consider-stringlike-sexp)))
 (defun evil-sp--depth-at (&optional point)
   "Return the depth at POINT.
 
