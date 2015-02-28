@@ -255,20 +255,38 @@ proper dispatching."
          (push major-mode sp-navigate-consider-stringlike-sexp)
          ,@body)
      (pop sp-navigate-consider-stringlike-sexp)))
+
+(defun evil-sp--fast-depth-at (&optional point)
+  "Finds the depth at POINT using native code.
+
+Unfortunately this only works for lisps."
+  (when (memq major-mode sp--lisp-modes)
+    (ignore-errors
+      (save-excursion
+        (beginning-of-defun)
+        (let ((parse-state (parse-partial-sexp (point) (or point (point)))))
+          (when parse-state
+            (let ((in-string-p (nth 3 parse-state))
+                  (depth (first parse-state)))
+              (if in-string-p
+                  (1+ depth)
+                depth))))))))
+
 (defun evil-sp--depth-at (&optional point)
   "Return the depth at POINT.
 
 Strings affect depth."
-  (push major-mode sp-navigate-consider-stringlike-sexp)
-  (let ((depth 0))
-    (save-excursion
-      (when point
-        (goto-char point))
-      (unwind-protect
-          (while (and (not (sp-point-in-comment))
-                      (ignore-errors (sp-backward-up-sexp)))
-            (cl-incf depth))
-        (pop sp-navigate-consider-stringlike-sexp)))
+  (let ((fast-depth (evil-sp--fast-depth-at point))
+        (depth 0))
+    (if nil
+        fast-depth
+      (save-excursion
+        (when point
+          (goto-char point))
+        (evil-sp--with-stringlike-navigation
+         (while (and (not (sp-point-in-comment))
+                     (ignore-errors (sp-backward-up-sexp)))
+           (cl-incf depth)))))
     depth))
 
 (defun evil-sp--new-ending (beg end &optional no-error)
