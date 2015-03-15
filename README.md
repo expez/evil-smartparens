@@ -16,7 +16,11 @@ Put this in your `.emacs` or `init.el`:
 (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
 ```
 
-this will turn on `evil-smartparens` whenever `smartparens` is activated.  This might not be what you want, as you're likely to get some surprises when working in buffers running say `markdown-mode`.  If you just want to enable `evil-smartparens` in certain modes you can do something like this:
+this will turn on `evil-smartparens` whenever `smartparens` is
+activated.  This might not be what you want, as you're likely to get
+some surprises when working in buffers running say `markdown-mode`.
+If you just want to enable `evil-smartparens` in certain modes you can
+do something like this:
 
 ```elisp
 (add-hook 'clojure-mode-hook #'evil-smartparens-mode)
@@ -24,12 +28,20 @@ this will turn on `evil-smartparens` whenever `smartparens` is activated.  This 
 
 ## Features
 
-The goal of evil smartparens is to do what you mean instead of just erroring out.
+The goal of evil smartparens is to do what you mean, instead of just
+erroring out when `smartparens-strict-mode` is active.
 
-In the examples, let `|` indicate the position of cursor, and `[` and `]` delimit visual selections:
+When only `smartparens-mode` is active, the only keys that are rebound
+are those imitating the functionality of `sp-kill-sexp`: `Y`, `D` and
+`C`.
+
+In the examples below, let `|` indicate the position of cursor, and
+`[` and `]` delimit visual selections:
 
 ### Deleting text
-The goal here is to just modify the region so it is safe.  Most of the times this means shrinking the region.
+
+The goal here is to just modify the region so it is safe.  Most of the
+times this means shrinking the region.
 
 #### dW
 
@@ -140,10 +152,6 @@ Will kill everything.
 # c and y
 
 `c` works just like `d`  `C` just like `D` but also enters insert mode. `y` works just like `d` except it doesn't actually remove anything from the buffer.
-
-## Difference between smartparens-strict-mode and smartparens-mode
-
-In `smartparens-mode` the only keys that are rebound are those imitating the functionality of `sp-kill-sexp`: `Y`, `D` and `C`.
 
 ## Known limitations
 
