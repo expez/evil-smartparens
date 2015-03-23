@@ -255,3 +255,39 @@
    "f[o]o"
    ("vlX" [escape])
    "f"))
+
+(ert-deftest evil-sp-delete-balanced-preserve-indent ()
+  :tags '(evil-sp)
+  (evil-test-buffer
+   "
+(let ((foo \"bar\"))
+  ([c]oncat foo \"baz\"))"
+   ("dd" [escape])
+   "
+(let ((foo \"bar\"))
+  )"))
+
+(ert-deftest evil-sp-change-balanced-preserve-indent ()
+  :tags '(evil-sp)
+  (evil-test-buffer
+   "
+(let ((foo \"bar\"))
+  ([c]oncat foo \"baz\"))"
+   ("cc" [escape])
+   "
+(let ((foo \"bar\"))
+  )"))
+
+
+(ert-deftest evil-sp-delete-no-op-preserve-indent ()
+  :tags '(evil-sp)
+  (evil-test-buffer
+   "
+(let ((foo \"bar\"))
+  ([l]et ((asdf \"ghkj\"))
+    (concat foo asdf)))"
+   ("dd" [escape])
+   "
+(let ((foo \"bar\"))
+  (let ((asdf \"ghkj\"))
+    (concat foo asdf)))"))
