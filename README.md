@@ -26,6 +26,9 @@ do something like this:
 (add-hook 'clojure-mode-hook #'evil-smartparens-mode)
 ```
 
+__Note:__ If you wish to be protected from introducing unbalanced pairs by
+editing commands which delete regions, what you want is `smartparens-strict-mode`.
+
 ## Features
 
 The goal of evil smartparens is to do what you mean, instead of just
