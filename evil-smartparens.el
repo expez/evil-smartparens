@@ -89,10 +89,11 @@ list of (fn args) to pass to `apply''"
               (evil-sp--depth-at (point-at-eol)))
            (sp-region-ok-p (point) (point-at-eol)))
       (point-at-eol) ; Act like kill line
-    (max
-     ;; Greedy killing
-     (evil-sp--get-endpoint-for-sp-kill-sexp)
-     (evil-sp--point-after 'sp-forward-sexp))))
+    (evil-sp--new-ending (point)
+                         (max
+                          ;; Greedy killing
+                          (evil-sp--get-endpoint-for-sp-kill-sexp)
+                          (evil-sp--point-after 'sp-forward-sexp)))))
 
 (defun evil-sp--region-too-expensive-to-check ()
   "When it takes prohobitively long to check region we cop out."

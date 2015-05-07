@@ -291,3 +291,10 @@
 (let ((foo \"bar\"))
   (let ((asdf \"ghkj\"))
     (concat foo asdf)))"))
+
+(ert-deftest evil-sp-kill-emulation-works-as-it-should ()
+  :tags '(evil-sp)
+  (evil-test-buffer
+   "(Test [ ]        )"
+   ("D" [escape])
+   "(Test )"))
