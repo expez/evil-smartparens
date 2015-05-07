@@ -300,7 +300,7 @@
    ("D" [escape])
    "(Test )"))
 
-(ert-deftest evil-sp-works-with-one-line-comments()
+(ert-deftest evil-sp-works-with-one-line-comments ()
   ;; #16
   :tags '(evil-sp)
   (evil-test-buffer
@@ -311,3 +311,10 @@
    "(
 1
 1)"))
+
+(ert-deftest evil-sp-delete-line-kills-empty-sexp ()
+  :tags '(evil-sp)
+  (evil-test-buffer
+   "([])"
+   ("D" [escape])
+   ""))

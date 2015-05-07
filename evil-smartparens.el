@@ -233,10 +233,11 @@ yank-ring instead of killing."
   "Emulate `sp-kill-sexp' with universal prefix."
   :motion nil
   (interactive "<R><x>")
-  (if (looking-at "\n")
-      (evil-join (point) (1+ (point)))
-    (evil-delete (point) (evil-sp--get-endpoint-for-killing)
-                 'inclusive register yank-handler)))
+  (cond
+   ((or (sp-point-in-empty-sexp) (sp-point-in-empty-string)) (sp-kill-sexp))
+   ((looking-at "\n") (evil-join (point) (1+ (point))))
+   (t (evil-delete (point) (evil-sp--get-endpoint-for-killing)
+                   'inclusive register yank-handler))))
 
 (evil-define-operator evil-sp-change-line (beg end type register yank-handler)
   "Emulate `sp-kill-sexp' with universal prefix and enter `evil-insert-state'."
