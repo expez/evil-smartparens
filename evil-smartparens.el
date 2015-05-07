@@ -288,6 +288,10 @@ Unfortunately this only works for lisps."
   "Return the depth at POINT.
 
 Strings affect depth."
+  (save-excursion
+    (goto-char point)
+    (when (sp-point-in-comment)
+      (setq point (1- (car (sp-get-comment-bounds))))))
   (let ((fast-depth (evil-sp--fast-depth-at point))
         (depth 0))
     (if nil

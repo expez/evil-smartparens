@@ -293,8 +293,21 @@
     (concat foo asdf)))"))
 
 (ert-deftest evil-sp-kill-emulation-works-as-it-should ()
+  ;; #15
   :tags '(evil-sp)
   (evil-test-buffer
    "(Test [ ]        )"
    ("D" [escape])
    "(Test )"))
+
+(ert-deftest evil-sp-works-with-one-line-comments()
+  ;; #16
+  :tags '(evil-sp)
+  (evil-test-buffer
+   "([+] ;;This is a comment
+1
+1)"
+   ("D" [escape])
+   "(
+1
+1)"))
