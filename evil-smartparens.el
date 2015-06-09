@@ -5,7 +5,7 @@
 ;; Author: Lars Andersen <expez@expez.com>
 ;; URL: https://www.github.com/expez/evil-smartparens
 ;; Keywords: evil smartparens
-;; Version: 0.1
+;; Version: 0.1.1
 ;; Package-Requires: ((evil "1.0") (cl-lib "0.3") (emacs "24.4") (smartparens "1.6.3"))
 
 ;; This file is not part of GNU Emacs.
@@ -163,11 +163,11 @@ list of (fn args) to pass to `apply''"
               (new-end (evil-sp--new-ending beg end)))
           (if (and (= new-end end)
                    (= new-beg beg))
-              (evil-delete beg end type yank-handler)
-            (evil-delete new-beg new-end 'inclusive yank-handler)))
+              (evil-delete beg end type register yank-handler)
+            (evil-delete new-beg new-end 'inclusive register yank-handler)))
       (error (let* ((beg (evil-sp--new-beginning beg end :shrink))
                     (end (evil-sp--new-ending beg end)))
-               (evil-delete beg end type yank-handler)))))
+               (evil-delete beg end type register yank-handler)))))
   (indent-according-to-mode))
 
 (evil-define-operator evil-sp-change (beg end type register yank-handler)
@@ -177,17 +177,17 @@ list of (fn args) to pass to `apply''"
           (= beg end)
           (and (eq type 'block)
                (evil-sp--block-is-balanced beg end)))
-      (evil-change beg end type yank-handler)
+      (evil-change beg end type register yank-handler)
     (condition-case nil
         (let ((new-beg (evil-sp--new-beginning beg end))
               (new-end (evil-sp--new-ending beg end)))
           (if (and (= new-end end)
                    (= new-beg beg))
-              (evil-change beg end type yank-handler)
-            (evil-change new-beg new-end 'inclusive yank-handler)))
+              (evil-change beg end type register yank-handler)
+            (evil-change new-beg new-end 'inclusive register yank-handler)))
       (error (let* ((beg (evil-sp--new-beginning beg end :shrink))
                     (end (evil-sp--new-ending beg end)))
-               (evil-change beg end type yank-handler)))))
+               (evil-change beg end type register yank-handler)))))
   (indent-according-to-mode))
 
 (evil-define-operator evil-sp-yank (beg end type register yank-handler)
@@ -204,11 +204,11 @@ list of (fn args) to pass to `apply''"
               (new-end (evil-sp--new-ending beg end)))
           (if (and (= new-end end)
                    (= new-beg beg))
-              (evil-yank beg end type yank-handler)
-            (evil-yank new-beg new-end 'inclusive yank-handler)))
+              (evil-yank beg end type register yank-handler)
+            (evil-yank new-beg new-end 'inclusive register yank-handler)))
       ('error (let* ((beg (evil-sp--new-beginning beg end :shrink))
                      (end (evil-sp--new-ending beg end)))
-                (evil-yank beg end type yank-handler))))))
+                (evil-yank beg end type register yank-handler))))))
 
 (evil-define-operator evil-sp-change-whole-line
   (beg end type register yank-handler)
