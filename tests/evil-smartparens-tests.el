@@ -322,6 +322,13 @@
   ;; #21
   :tags '(evil-sp)
   (evil-test-buffer
-    "([o]fo)"
-    ("xp" [escape])
-    "(foo)"))
+   "([o]fo)"
+   ("xp" [escape])
+   "(foo)"))
+
+(ert-deftest evil-sp-change-preserves-space-after-word ()
+  :tags '(evil-sp evil-change)
+  (evil-test-buffer
+    "foo [b]ar baz"
+    ("cw" [escape])
+    "foo[ ] baz"))
