@@ -318,7 +318,7 @@ Strings affect depth."
       (setq point (1- (car (sp-get-comment-bounds))))))
   (let ((fast-depth (evil-sp--fast-depth-at point))
         (depth 0))
-    (if nil
+    (if fast-depth
         fast-depth
       (save-excursion
         (when point
