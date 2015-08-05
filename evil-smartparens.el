@@ -370,7 +370,7 @@ by decrementing BEG."
 
 (defun evil-sp--fail ()
   "Error out with a friendly message."
-  (error "Can't find a safe region to act on!"))
+  (user-error "Can't find a safe region to act on!"))
 
 (provide 'evil-smartparens)
 ;;; evil-smartparens.el ends here
