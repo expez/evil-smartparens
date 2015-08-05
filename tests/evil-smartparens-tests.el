@@ -66,23 +66,23 @@
   (evil-test-buffer
     "[(])"
     ("x" [escape])
-    "()"))
+    ""))
 
 (ert-deftest evil-sp-test-delete-backward-char ()
   "Test `evil-delete-backward-char'."
   :tags '(evil-sp)
-  (evil-test-buffer
-    "([x])"
-    ("X" [escape])
-    "(x)"))
+  (should-error (evil-test-buffer
+                 "([x])"
+                 ("X" [escape])
+                 "(x)")))
 
 (ert-deftest evil-sp-test-delete-backward-char-on-paren ()
   "Test `evil-delete-backward-char' on paren"
   :tags '(evil-sp)
   (evil-test-buffer
-    "([)]"
-    ("X" [escape])
-    ""))
+   "([)]"
+   ("X" [escape])
+   ""))
 
 (ert-deftest evil-sp-test-delete-line-is-sp-kill-sexp-kills-garb ()
   "Test `evil-delete-line'"
@@ -278,7 +278,6 @@
 (let ((foo \"bar\"))
   )"))
 
-
 (ert-deftest evil-sp-delete-no-op-preserve-indent ()
   :tags '(evil-sp)
   (evil-test-buffer
@@ -318,3 +317,11 @@
    "([])"
    ("D" [escape])
    ""))
+
+(ert-deftest evil-sp-transpose-chars ()
+  ;; #21
+  :tags '(evil-sp)
+  (evil-test-buffer
+   "([o]fo)"
+   ("xp" [escape]
+    "(foo)")))

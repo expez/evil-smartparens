@@ -5,7 +5,7 @@
 ;; Author: Lars Andersen <expez@expez.com>
 ;; URL: https://www.github.com/expez/evil-smartparens
 ;; Keywords: evil smartparens
-;; Version: 0.1.1
+;; Version: 0.2.0
 ;; Package-Requires: ((evil "1.0") (cl-lib "0.3") (emacs "24.4") (smartparens "1.6.3"))
 
 ;; This file is not part of GNU Emacs.
@@ -117,6 +117,20 @@ list of (fn args) to pass to `apply''"
              (re-search-forward (sp--get-closing-regexp) (point-at-eol)
                                 :noerror)))))
 
+(evil-define-operator evil-sp-backward-delete-char (beg end type register)
+  :motion evil-backward-char
+  (interactive "<R><x>")
+  (if (save-excursion (forward-char) (sp-point-in-empty-sexp))
+      (save-excursion (forward-char) (sp-delete-char))
+    (evil-sp-delete beg end type register)))
+
+(evil-define-operator evil-sp-delete-char (beg end type register)
+  :motion evil-forward-char
+  (interactive "<R><x>")
+  (if (save-excursion (forward-char) (sp-point-in-empty-sexp))
+      (save-excursion (forward-char) (sp-delete-char))
+    (evil-sp-delete beg end type register)))
+
 (defun evil-sp--add-bindings ()
   (when smartparens-strict-mode
     (evil-define-key 'normal evil-smartparens-mode-map
@@ -124,8 +138,8 @@ list of (fn args) to pass to `apply''"
       (kbd "c") #'evil-sp-change
       (kbd "y") #'evil-sp-yank
       (kbd "S") #'evil-sp-change-whole-line
-      (kbd "X") #'sp-backward-delete-char
-      (kbd "x") #'sp-delete-char)
+      (kbd "X") #'evil-sp-backward-delete-char
+      (kbd "x") #'evil-sp-delete-char)
     (evil-define-key 'visual evil-smartparens-mode-map
       (kbd "X") #'evil-sp-delete
       (kbd "x") #'evil-sp-delete))
