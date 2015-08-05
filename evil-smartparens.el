@@ -78,8 +78,10 @@ list of (fn args) to pass to `apply''"
       (progn
         (push major-mode sp-navigate-consider-stringlike-sexp)
         (evil-sp--new-ending (point)
-                             (evil-sp--point-after '(sp-up-sexp 1)
-                                                   '(sp-backward-down-sexp 1))
+                             (or (ignore-errors
+                                   (evil-sp--point-after '(sp-up-sexp 1)
+                                                         '(sp-backward-down-sexp 1)))
+                                 (point))
                              :no-error))
     (pop sp-navigate-consider-stringlike-sexp)))
 
