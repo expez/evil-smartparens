@@ -122,16 +122,20 @@ list of (fn args) to pass to `apply''"
 (evil-define-operator evil-sp-backward-delete-char (beg end type register)
   :motion evil-backward-char
   (interactive "<R><x>")
-  (if (save-excursion (forward-char) (sp-point-in-empty-sexp))
-      (save-excursion (forward-char) (sp-delete-char))
-    (evil-sp-delete beg end type register)))
+  (condition-case user-error
+      (if (save-excursion (forward-char) (sp-point-in-empty-sexp))
+          (save-excursion (forward-char) (sp-delete-char))
+        (evil-sp-delete beg end type register))
+    ('error (progn (goto-char end) (evil-sp--fail)))))
 
 (evil-define-operator evil-sp-delete-char (beg end type register)
   :motion evil-forward-char
   (interactive "<R><x>")
-  (if (save-excursion (forward-char) (sp-point-in-empty-sexp))
-      (save-excursion (forward-char) (sp-delete-char))
-    (evil-sp-delete beg end type register)))
+  (condition-case user-error
+      (if (save-excursion (forward-char) (sp-point-in-empty-sexp))
+          (save-excursion (forward-char) (sp-delete-char))
+        (evil-sp-delete beg end type register))
+    ('error (progn (goto-char beg) (evil-sp--fail)))))
 
 (defun evil-sp--add-bindings ()
   (when smartparens-strict-mode
