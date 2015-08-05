@@ -322,6 +322,6 @@
   ;; #21
   :tags '(evil-sp)
   (evil-test-buffer
-   "([o]fo)"
-   ("xp" [escape]
-    "(foo)")))
+    "([o]fo)"
+    ("xp" [escape])
+    "(foo)"))
