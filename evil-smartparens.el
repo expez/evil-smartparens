@@ -297,16 +297,17 @@ proper dispatching."
 
 Unfortunately this only works for lisps."
   (when (memq major-mode sp--lisp-modes)
-    (ignore-errors
-      (save-excursion
-        (beginning-of-defun)
-        (let ((parse-state (parse-partial-sexp (point) (or point (point)))))
-          (when parse-state
-            (let ((in-string-p (nth 3 parse-state))
-                  (depth (first parse-state)))
-              (if in-string-p
-                  (1+ depth)
-                depth))))))))
+    (let ((point (or point (point))))
+      (ignore-errors
+        (save-excursion
+          (beginning-of-defun)
+          (let ((parse-state (parse-partial-sexp (point) point)))
+            (when parse-state
+              (let ((in-string-p (nth 3 parse-state))
+                    (depth (first parse-state)))
+                (if in-string-p
+                    (1+ depth)
+                  depth)))))))))
 
 (defun evil-sp--depth-at (&optional point)
   "Return the depth at POINT.
