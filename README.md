@@ -38,8 +38,9 @@ When only `smartparens-mode` is active, the only keys that are rebound
 are those imitating the functionality of `sp-kill-sexp`: `Y`, `D` and
 `C`.
 
-In the examples below, let `|` indicate the position of cursor, and
-`[` and `]` delimit visual selections:
+In the examples below `smartparens-strict-mode` is active, `|`
+indicates the position of the cursor, and `[` and `]` delimit the
+visual selection:
 
 ### Deleting text
 
