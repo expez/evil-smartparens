@@ -102,11 +102,11 @@ This is so nice when you just want to get rid of something in a `let` binding.
 
 ### D
 
-`D` works like `sp-kill-sexp` which is similar to `paredit-kill`.
+`D` works like `sp-kill-sexp` with a universal prefix.
 
 ```elisp
 (let ((foo 1.01))
-  |(frobnicate foo))
+  (-> foo |(bar baz) qux (quux corge grault) garply))
 ```
 
 and I hit `D` I will see:
@@ -114,7 +114,7 @@ and I hit `D` I will see:
 
 ```elisp
 (let ((foo 1.01))
-  )
+  (-> foo |)
 ```
 
 
