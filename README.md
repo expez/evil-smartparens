@@ -1,4 +1,4 @@
-# Evil smartparens [![Build Status](https://travis-ci.org/expez/evil-smartparens.svg)](https://travis-ci.org/expez/evil-smartparens)
+# Evil smartparens  [![MELPA](http://melpa.org/packages/evil-smartparens-badge.svg)](http://melpa.org/#/evil-smartparens) [![Build Status](https://travis-ci.org/expez/evil-smartparens.svg)](https://travis-ci.org/expez/evil-smartparens)
 
 Evil smartparens is a minor mode which makes [evil](https://gitorious.org/evil/pages/Home) play nice with [smartparens](https://github.com/Fuco1/smartparens).
 
