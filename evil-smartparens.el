@@ -150,8 +150,7 @@ list of (fn args) to pass to `apply''"
   (evil-define-key 'normal evil-smartparens-mode-map
     (kbd "D") #'evil-sp-delete-line
     (kbd "Y") #'evil-sp-yank-line
-    (kbd "C") #'evil-sp-change-line
-    (kbd "DEL") #'sp-backward-delete-char)
+    (kbd "C") #'evil-sp-change-line)
   (evil-define-key 'insert evil-smartparens-mode-map
     (kbd "DEL") 'sp-backward-delete-char)
   (evil-define-key 'visual evil-smartparens-mode-map
