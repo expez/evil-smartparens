@@ -159,7 +159,7 @@ Will kill everything.
 
 ## Known limitations
 
-Quite a bit of work is done to ensure region is OK.  This means we can run into performance issues.  The variable `evil-smartparens-threshold` controls how large `region` should be before we cop out.  The most common cases should be quite fast (regions limited to the delimiters found in lisp-like languages), but the more exotic delimiters use a much slower code path.  On slow computers it might make sense to decrease decrease `evil-smartparens-threshold`.  In any event, it prevents checking entire files when we're copying out from emacs.
+Quite a bit of work is done to ensure region is OK.  This means we can run into performance issues.  The variable `evil-smartparens-threshold` controls how large `region` should be before we cop out.  The most common cases should be quite fast (regions limited to the delimiters found in lisp-like languages), but the more exotic delimiters use a much slower code path.  On slow computers it might make sense to decrease `evil-smartparens-threshold`.  In any event, it prevents checking entire files when we're copying out from emacs.
 
 ## Escape hatches
 
