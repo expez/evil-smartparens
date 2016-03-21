@@ -114,7 +114,7 @@ and I hit `D` I will see:
 
 ```elisp
 (let ((foo 1.01))
-  (-> foo |)
+  (-> foo |))
 ```
 
 
