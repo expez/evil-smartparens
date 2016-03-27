@@ -185,8 +185,7 @@ list of (fn args) to pass to `apply''"
             (evil-delete new-beg new-end 'inclusive register yank-handler)))
       (error (let* ((beg (evil-sp--new-beginning beg end :shrink))
                     (end (evil-sp--new-ending beg end)))
-               (evil-delete beg end type register yank-handler)))))
-  (indent-according-to-mode))
+               (evil-delete beg end type register yank-handler))))))
 
 (evil-define-operator evil-sp-change (beg end type register yank-handler)
   "Call `evil-change' with a balanced region"
@@ -208,8 +207,7 @@ list of (fn args) to pass to `apply''"
             (evil-change new-beg new-end 'inclusive register yank-handler)))
       (error (let* ((beg (evil-sp--new-beginning beg end :shrink))
                     (end (evil-sp--new-ending beg end)))
-               (evil-change beg end type register yank-handler)))))
-  (indent-according-to-mode))
+               (evil-change beg end type register yank-handler))))))
 
 (evil-define-operator evil-sp-yank (beg end type register yank-handler)
   :move-point nil
