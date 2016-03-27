@@ -372,6 +372,14 @@ by decrementing BEG."
         (evil-sp--fail)))
     beg))
 
+(defun evil-sp--safe-beginning (beg)
+  "Return a new value for BEG that does not include indentation."
+  (max beg
+       (save-excursion
+         (goto-char beg)
+         (back-to-indentation)
+         (point))))
+
 (defun evil-sp--fail ()
   "Error out with a friendly message."
   (user-error "That would leave the buffer unbalanced"))
