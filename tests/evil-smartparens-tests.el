@@ -68,6 +68,30 @@
     ("x" [escape])
     ""))
 
+(ert-deftest evil-sp-test-substitute-char ()
+  "Test `evil-substitute-char'."
+  :tags '(evil-sp)
+  (evil-test-buffer
+   "([x])"
+   ("s" [escape])
+   "()"))
+
+(ert-deftest evil-sp-test-substitute-char-on-empty-parens ()
+  "Test `evil-substitute-char' on empty parens"
+  :tags '(evil-sp)
+  (evil-test-buffer
+   "[(])"
+   ("s" [escape])
+   ""))
+
+(ert-deftest evil-sp-test-substitute-char-on-paren ()
+  "Test `evil-substitute-char'."
+  :tags '(evil-sp)
+  (should-error (evil-test-buffer
+                 "[(]x)"
+                 ("s" [escape])
+                 "(x)")))
+
 (ert-deftest evil-sp-test-delete-backward-char ()
   "Test `evil-delete-backward-char'."
   :tags '(evil-sp)
