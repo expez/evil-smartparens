@@ -2,7 +2,7 @@ EMACS ?= emacs
 CASK ?= cask
 
 test: elpa
-	${CASK} exec ${EMACS} -Q -batch -L . -L tests \
+	${CASK} exec ${EMACS} -Q -batch -L . -L tests/evil-tests \
 		-l tests/evil-smartparens-tests.el \
 		-f ert-run-tests-batch-and-exit
 
