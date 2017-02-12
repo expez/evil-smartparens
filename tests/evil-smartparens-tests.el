@@ -1,6 +1,11 @@
 (require 'ert)
 (require 'evil-smartparens)
-(require 'evil-tests)
+(or (require 'evil-tests)
+    (let ((load-path
+	   (cons (expand-file-name "evil-tests"
+				   (file-name-directory
+				    (or load-file-name buffer-file-name)))
+		 load-path)))))
 (require 'evil-surround)
 
 (defun evil-sp--enable-for-test (&rest _)
