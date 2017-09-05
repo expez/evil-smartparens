@@ -152,6 +152,7 @@ list of (fn args) to pass to `apply''"
       (kbd "S") #'evil-sp-change-whole-line
       (kbd "X") #'evil-sp-backward-delete-char
       (kbd "x") #'evil-sp-delete-char)
+    (add-to-list 'evil-change-commands #'evil-sp-change)
     (evil-define-key 'visual evil-smartparens-mode-map
       (kbd "X") #'evil-sp-delete
       (kbd "x") #'evil-sp-delete))
@@ -198,9 +199,6 @@ list of (fn args) to pass to `apply''"
 (evil-define-operator evil-sp-change (beg end type register yank-handler)
   "Call `evil-change' with a balanced region"
   (interactive "<R><x><y>")
-  ;; #20 don't delete the space after a word
-  (when (save-excursion (goto-char end) (looking-back " " (- (point) 5)))
-    (setq end (1- end)))
   (if (or (evil-sp--override)
           (= beg end)
           (and (eq type 'block)
