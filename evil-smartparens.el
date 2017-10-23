@@ -297,7 +297,7 @@ proper dispatching."
   "Finds the depth at POINT using native code.
 
 Unfortunately this only works for lisps."
-  (when (memq major-mode sp--lisp-modes)
+  (when (memq major-mode sp-lisp-modes)
     (let ((point (or point (point))))
       (ignore-errors
         (save-excursion
