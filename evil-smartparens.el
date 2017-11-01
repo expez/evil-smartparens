@@ -75,14 +75,12 @@ list of (fn args) to pass to `apply''"
 (defun evil-sp--get-endpoint-for-sp-kill-sexp ()
   (unwind-protect
       (progn
-        (push major-mode sp-navigate-consider-stringlike-sexp)
         (evil-sp--new-ending (point)
                              (or (ignore-errors
                                    (evil-sp--point-after '(sp-up-sexp 1)
                                                          '(sp-backward-down-sexp 1)))
                                  (point))
-                             :no-error))
-    (pop sp-navigate-consider-stringlike-sexp)))
+                             :no-error))))
 
 (defun evil-sp--get-endpoint-for-killing ()
   "Return the endpoint from POINT upto which `sp-kill-sexp' would kill."
@@ -331,11 +329,9 @@ Strings affect depth."
           (goto-char point))
         (unwind-protect
             (progn
-              (push major-mode sp-navigate-consider-stringlike-sexp)
               (while (and (not (sp-point-in-comment))
                           (ignore-errors (sp-backward-up-sexp)))
-                (cl-incf depth)))
-          (pop sp-navigate-consider-stringlike-sexp))))
+                (cl-incf depth))))))
     depth))
 
 (defun evil-sp--new-ending (beg end &optional no-error)
