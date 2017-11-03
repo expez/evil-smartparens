@@ -73,14 +73,13 @@ list of (fn args) to pass to `apply''"
     (point)))
 
 (defun evil-sp--get-endpoint-for-sp-kill-sexp ()
-  (unwind-protect
-      (progn
-        (evil-sp--new-ending (point)
-                             (or (ignore-errors
-                                   (evil-sp--point-after '(sp-up-sexp 1)
-                                                         '(sp-backward-down-sexp 1)))
-                                 (point))
-                             :no-error))))
+  (progn
+    (evil-sp--new-ending (point)
+                         (or (ignore-errors
+                               (evil-sp--point-after '(sp-up-sexp 1)
+                                                     '(sp-backward-down-sexp 1)))
+                             (point))
+                         :no-error)))
 
 (defun evil-sp--get-endpoint-for-killing ()
   "Return the endpoint from POINT upto which `sp-kill-sexp' would kill."
@@ -325,11 +324,10 @@ Strings affect depth."
       (save-excursion
         (when point
           (goto-char point))
-        (unwind-protect
-            (progn
-              (while (and (not (sp-point-in-comment))
-                          (ignore-errors (sp-backward-up-sexp)))
-                (cl-incf depth))))))
+        (progn
+          (while (and (not (sp-point-in-comment))
+                      (ignore-errors (sp-backward-up-sexp)))
+            (cl-incf depth)))))
     depth))
 
 (defun evil-sp--new-ending (beg end &optional no-error)
