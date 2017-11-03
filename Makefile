@@ -22,4 +22,11 @@ print-deps:
 	${EMACS} --version
 	@echo CASK=${CASK}
 
-travis-ci: print-deps test
+ci-test:
+	$(CASK) excec ${EMACS} --version
+	EMACS=$$(evm bin) ${CASK}
+	EMACS=$$(evm bin) ${CASK} exec $$(evm bin) -Q -batch -L . -L tests/evil-tests \
+		-l tests/evil-smartparens-tests.el \
+		-f ert-run-tests-batch-and-exit
+
+travis-ci: print-deps ci-test
